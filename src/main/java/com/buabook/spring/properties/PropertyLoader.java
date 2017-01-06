@@ -1,5 +1,6 @@
 package com.buabook.spring.properties;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.support.AbstractBeanFactory;
 
 import com.google.common.base.Strings;
@@ -10,7 +11,7 @@ import com.google.common.cache.LoadingCache;
 /**
  * <h3>Spring Properties Programmatic Access</h3>
  * <p>Provides programmatic access to the Spring properties defined in the application.</p>
- * <p>NOTE: This class caches results <i>indefinitely</i> once queried from the property file.</p>
+ * <p>NOTE: By default, this class caches results <i>indefinitely</i> once queried from the property file.</p>
  * (c) 2015 Sport Trades Ltd
  * 
  * @author Jas Rajasansir
@@ -31,7 +32,7 @@ public class PropertyLoader {
 	}
 	
 	/** 
-	 * <p>NOTE: It is recommended in most cases to use Spring's <code>@Value</code> annotation to load
+	 * <p>NOTE: It is recommended in most cases to use Spring's {@link Value} annotation to load
 	 * property configuration. This method is supplied in the rare cases that you need to programmatically 
 	 * define the key.</p> 
 	 * @return The specified property value
@@ -41,6 +42,16 @@ public class PropertyLoader {
 			return null;
 		
 		return cache.getUnchecked(property);
+	}
+	
+	
+	/** 
+	 * <p>Provides the cache to store properties loaded via the {@link AbstractBeanFactory}.</p>
+	 * <p>This can be overridden if necessary to customise the cache. Use {@link #getCacheLoader()} as the {@link CacheLoader}.</p>
+	 * @see CacheBuilder
+	 */
+	protected LoadingCache<String, String> buildNewCache() {
+		return CacheBuilder.newBuilder().build(getCacheLoader());
 	}
 	
 	
@@ -56,7 +67,6 @@ public class PropertyLoader {
 		
 		return propertyValue;
 	}
-	
 	
 	private CacheLoader<String, String> getCacheLoader() {
 		return new CacheLoader<String, String>() {
