@@ -8,8 +8,10 @@ import org.springframework.context.annotation.Configuration;
 import com.buabook.spring.properties.PropertyLoader;
 
 /**
- * 
- * <br/><br/>(c) 2017 Sport Trades Ltd
+ * <h3>Spring Property Loader Configurator</h3>
+ * <p>This {@link Configuration} allows {@link PropertyLoader} to be autowired into any class to dynamically
+ * query properties loaded by Spring.</p>
+ * (c) 2017 Sport Trades Ltd
  * 
  * @author Jas Rajasansir
  * @version 1.0.0

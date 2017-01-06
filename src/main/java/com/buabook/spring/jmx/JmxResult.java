@@ -3,7 +3,7 @@ package com.buabook.spring.jmx;
 /**
  * <h3>Standard JMX Return Values</h3>
  * <p>Return types for JMX must be standard types. Custom types will not be copied over to the JMX console.</p>
- * <br/><br/>(c) 2016 Sport Trades Ltd
+ * (c) 2016 Sport Trades Ltd
  * 
  * @author Jas Rajasansir
  * @version 1.0.0
