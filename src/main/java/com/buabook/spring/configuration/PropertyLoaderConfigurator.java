@@ -1,9 +1,12 @@
 package com.buabook.spring.configuration;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.support.AbstractBeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
 
 import com.buabook.spring.properties.PropertyLoader;
 
@@ -19,13 +22,18 @@ import com.buabook.spring.properties.PropertyLoader;
  */
 @Configuration
 public class PropertyLoaderConfigurator {
+	private static final Logger log = LoggerFactory.getLogger(PropertyLoaderConfigurator.class);
+	
 
 	@Autowired
 	private AbstractBeanFactory abstractBeanFactory;
 
 
     @Bean
+    @Scope("singleton")
 	public PropertyLoader propertyLoader() {
+    	log.debug("Initialising new dynamic property loader with bean factory: " + abstractBeanFactory.toString());
+    	
     	return new PropertyLoader(abstractBeanFactory);
     }
 
