@@ -11,7 +11,8 @@ import com.google.common.cache.LoadingCache;
 /**
  * <h3>Spring Properties Programmatic Access</h3>
  * <p>Provides programmatic access to the Spring properties defined in the application.</p>
- * <p>NOTE: By default, this class caches results <i>indefinitely</i> once queried from the property file.</p>
+ * <p>NOTE: By default, this class caches results <i>indefinitely</i> once queried from the property file. Override
+ * {@link #buildNewCache()} if you wish to change this behaviour.</p>
  * (c) 2015 Sport Trades Ltd
  * 
  * @author Jas Rajasansir
@@ -27,14 +28,15 @@ public class PropertyLoader {
 	/** @see PropertyLoader */
 	public PropertyLoader(AbstractBeanFactory beanFactory) {
 		this.beanFactory = beanFactory;
-		
-		this.cache = CacheBuilder.newBuilder().build(getCacheLoader());
+		this.cache = buildNewCache();
 	}
 	
 	/** 
 	 * <p>NOTE: It is recommended in most cases to use Spring's {@link Value} annotation to load
 	 * property configuration. This method is supplied in the rare cases that you need to programmatically 
-	 * define the key.</p> 
+	 * define the key.</p>
+	 * @param property The property name to load, <i>without</i> the Spring <code>${</code> and <code>}</code> tags (these
+	 * will be added automatically)
 	 * @return The specified property value
 	 */
 	public String getProperty(String property) {
