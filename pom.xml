@@ -4,7 +4,7 @@
 	<groupId>com.buabook</groupId>
 	<artifactId>spring-common</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 
 	<name>BuaBook Spring Common Library</name>
 	<description>Spring functionality (c) 2016 Sport Trades Ltd</description>
